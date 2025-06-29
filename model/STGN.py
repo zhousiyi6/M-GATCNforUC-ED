@@ -192,8 +192,8 @@ class STGN(torch.nn.Module):
         # x, (edge_index, att_weights_conv2) = self.conv2(x, edge_index, return_attention_weights=True)
         # x = F.relu(x)
         # 重塑x以适应TCN模块
-        # 假设x的形状现在是(batch_size*num_nodes, num_features)
-        # 需要将它变形为(batch_size, num_features, num_nodes)，因为TCN期望的输入形状是(batch_size, channels, length)
+        # x的形状现在是(batch_size*length, num_features)
+        # 需要将它变形为(batch_size, num_features, length)，因为TCN期望的输入形状是(batch_size, channels, length)
         x = x.view(-1, self.num_nodes, self.all_channels)  # 重新组织x的形状
         x = x.transpose(1, 2)  # 转置为(batch_size, channels, length)
         # 通过TCN模块
